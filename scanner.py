@@ -1,6 +1,6 @@
 import ply.lex as lex
 
-literals = "=+-*/',;:()[]{}"
+literals = "=+-*/<>,;:()[]{}'"
 
 reserved = {
     'if'    : 'IF',
@@ -16,7 +16,11 @@ reserved = {
     'print' : 'PRINT'
 }
 
-tokens = ['ID', 'FLOAT', 'INT', 'STRING', 'DOTPLUS', 'DOTMINUS', 'DOTMUL', 'DOTDIV', 'LESSEQ', 'GREATEREQ', 'NOTEQUAL', 'EQUAL', 'PLUSASSIGN', 'MINUSASSIGN', 'MULASSIGN', 'DIVASSIGN'] + list(reserved.values())
+tokens = ['ID', 'FLOAT', 'INT', 'STRING', 'DOTPLUS',
+          'DOTMINUS', 'DOTMUL', 'DOTDIV', 'LESSEQ',
+          'GREATEREQ', 'NOTEQUAL', 'EQUAL', 'PLUSASSIGN',
+          'MINUSASSIGN', 'MULASSIGN', 'DIVASSIGN'
+          ] + list(reserved.values())
 
 
 t_ignore = ' \t'
@@ -65,8 +69,8 @@ def t_INT(t):
     return t
 
 def t_STRING(t):
-    r'".*"'
+    r'".*?"'
     t.value = str(t.value)[1:-1]
     return t
 
-lexer = lex.lex()
+lexer = lex.lex(optimize=True)
